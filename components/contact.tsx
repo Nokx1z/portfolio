@@ -1,3 +1,30 @@
+'use client'
+
+import { Mail } from 'lucide-react'
+import { SiGithub, SiDiscord } from 'react-icons/si'
+import { FaLinkedin } from 'react-icons/fa'
+import { motion } from 'framer-motion'
+import { siteConfig } from '@/lib/data'
+
+const contactIcons: Record<string, React.ReactNode> = {
+  Email: <Mail className="size-4" />,
+  GitHub: <SiGithub className="size-4" />,
+  LinkedIn: <FaLinkedin className="size-4" />,
+  Discord: <SiDiscord className="size-4" />,
+}
+
+const contactLinks = [
+  { label: 'Email', href: `mailto:${siteConfig.email}` },
+  { label: 'GitHub', href: siteConfig.github },
+  { label: 'LinkedIn', href: siteConfig.linkedin },
+  { label: 'Discord', href: `https://discord.com/users/${siteConfig.discord}` },
+]
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' as const } },
+}
+
 export function Contact() {
   return (
     <footer
@@ -9,15 +36,21 @@ export function Contact() {
         aria-hidden="true"
         className="pointer-events-none absolute top-12 right-6 hidden select-none md:right-12 md:block lg:right-20"
       >
-        <p className="writing-vertical text-4xl font-semibold tracking-[0.35em] text-muted-foreground/40">
+        <p className="writing-vertical text-4xl font-semibold tracking-[0.35em] text-muted-foreground/40 dark:text-foreground/80">
           連絡先
         </p>
       </div>
 
-      <div className="mx-auto flex max-w-6xl flex-col gap-12">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+        variants={fadeUp}
+        className="mx-auto flex max-w-6xl flex-col gap-12"
+      >
         <div className="flex flex-col gap-2">
           <span className="font-mono text-xs tracking-[0.4em] text-primary uppercase">
-            04
+            05
           </span>
           <h2 className="max-w-2xl text-4xl leading-tight font-black text-balance md:text-6xl">
             Hablemos.
@@ -29,33 +62,23 @@ export function Contact() {
         </div>
 
         <div className="flex flex-wrap gap-x-12 gap-y-4 font-mono text-sm tracking-[0.15em] uppercase">
-          <a
-            href="mailto:tu@email.com"
-            className="border-b border-foreground pb-1 transition-colors hover:border-primary hover:text-primary"
-          >
-            Email
-          </a>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-b border-foreground pb-1 transition-colors hover:border-primary hover:text-primary"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-b border-foreground pb-1 transition-colors hover:border-primary hover:text-primary"
-          >
-            LinkedIn
-          </a>
+          {contactLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target={link.label === 'Email' ? undefined : '_blank'}
+              rel={link.label === 'Email' ? undefined : 'noopener noreferrer'}
+              className="inline-flex items-center gap-2 transition-colors hover:text-primary"
+            >
+              <span className="text-primary">{contactIcons[link.label]}</span>
+              {link.label}
+            </a>
+          ))}
         </div>
 
         <div className="mt-12 flex items-end justify-between border-t border-border pt-6">
           <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            © 2026 — Hecho con calma
+            &copy; 2026 {siteConfig.alias} — Hecho con calma
           </span>
           <span
             aria-hidden="true"
@@ -64,7 +87,7 @@ export function Contact() {
             ありがとう
           </span>
         </div>
-      </div>
+      </motion.div>
     </footer>
   )
 }

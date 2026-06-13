@@ -9,6 +9,7 @@
   --font-sans: var(--font-noto-serif-jp), 'Noto Serif JP Fallback', serif;
   --font-serif: var(--font-noto-serif-jp), 'Noto Serif JP Fallback', serif;
   --font-mono: var(--font-geist-mono), 'Geist Mono Fallback', monospace;
+  --font-console: var(--font-jetbrains-mono), 'JetBrains Mono Fallback', monospace;
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -35,28 +36,47 @@
 
 :root {
   color-scheme: light;
-  /* Washi paper cream */
-  --background: oklch(0.955 0.012 90);
-  /* Sumi ink */
-  --foreground: oklch(0.22 0.008 80);
-  --card: oklch(0.935 0.014 90);
-  --card-foreground: oklch(0.22 0.008 80);
-  --popover: oklch(0.955 0.012 90);
-  --popover-foreground: oklch(0.22 0.008 80);
-  /* Kaki (persimmon) orange */
-  --primary: oklch(0.72 0.13 65);
-  --primary-foreground: oklch(0.22 0.008 80);
-  --secondary: oklch(0.91 0.016 90);
-  --secondary-foreground: oklch(0.22 0.008 80);
-  --muted: oklch(0.91 0.016 90);
-  --muted-foreground: oklch(0.5 0.012 80);
-  --accent: oklch(0.72 0.13 65);
-  --accent-foreground: oklch(0.22 0.008 80);
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.13 0 0);
+  --card: oklch(0.97 0 0);
+  --card-foreground: oklch(0.13 0 0);
+  --popover: oklch(0.985 0 0);
+  --popover-foreground: oklch(0.13 0 0);
+  --primary: oklch(0.35 0.02 260);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.94 0 0);
+  --secondary-foreground: oklch(0.13 0 0);
+  --muted: oklch(0.94 0 0);
+  --muted-foreground: oklch(0.48 0 0);
+  --accent: oklch(0.35 0.02 260);
+  --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.52 0.16 30);
-  --border: oklch(0.86 0.014 90);
-  --input: oklch(0.86 0.014 90);
-  --ring: oklch(0.72 0.13 65);
+  --border: oklch(0.87 0 0);
+  --input: oklch(0.87 0 0);
+  --ring: oklch(0.35 0.02 260);
   --radius: 0rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.13 0 0);
+  --foreground: oklch(0.96 0 0);
+  --card: oklch(0.17 0 0);
+  --card-foreground: oklch(0.96 0 0);
+  --popover: oklch(0.13 0 0);
+  --popover-foreground: oklch(0.96 0 0);
+  --primary: oklch(0.78 0.03 260);
+  --primary-foreground: oklch(0.13 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.96 0 0);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.78 0.03 260);
+  --accent-foreground: oklch(0.13 0 0);
+  --destructive: oklch(0.52 0.16 30);
+  --border: oklch(0.28 0 0);
+  --input: oklch(0.28 0 0);
+  --ring: oklch(0.78 0.03 260);
 }
 
 @layer base {
@@ -76,4 +96,12 @@
 .writing-vertical {
   writing-mode: vertical-rl;
   text-orientation: upright;
+}
+
+/* View Transitions API — ripple expand from click point */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  will-change: clip-path;
 }
