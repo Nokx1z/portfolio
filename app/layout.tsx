@@ -42,6 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
+      suppressHydrationWarning
       className={`bg-background ${notoSerifJP.variable} ${geistMono.variable} ${jetbrainsMono.variable}`}
     >
       <body className="font-serif antialiased">
