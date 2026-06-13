@@ -52,10 +52,10 @@ export const experienceData = [
 // Portafolio de proyectos (puedes añadir más objetos aquí en el futuro)
 export const projectsData = [
   {
-    title: "Sistema de Inventario Web",
-    type: "Proyecto Académico",
-    tech: ["PHP", "MySQL", "Arquitectura MVC", "JavaScript"],
-    description: "Aplicación web completa para la gestión de inventarios con operaciones CRUD optimizadas. Implementación de una arquitectura MVC estricta para garantizar la separación de conceptos entre la lógica de negocio y la capa de presentación. Integración de manejo de sesiones seguras y control de acceso básico.",
+    title: "SYS INESCOLARA",
+    type: "Proyecto Profesional",
+    tech: ["PHP 8.2", "MySQL", "Arquitectura MVC", "Apache", "DataTables", "AJAX", "Google reCAPTCHA v2"],
+    description: "Plataforma web para la gestión operativa del Vivero INECOLARA. Implementa un patrón de módulos CRUD estandarizados con interfaz DataTables, modales AJAX y autenticación con Google reCAPTCHA v2. El sistema gestiona dos bases de datos independientes: una para datos operativos del vivero y otra para seguridad y autenticación de usuarios. Construida sobre una arquitectura MVC con PHP 8.2 y Apache.",
     link: "https://sysinescolara.onrender.com/"
   }
 ];
