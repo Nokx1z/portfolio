@@ -78,7 +78,7 @@ export function Contact() {
 
         <div className="mt-12 flex items-end justify-between border-t border-border pt-6">
           <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            &copy; 2026 {siteConfig.alias} — Hecho con calma
+            &copy; 2026 {siteConfig.alias} 
           </span>
           <span
             aria-hidden="true"

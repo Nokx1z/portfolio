@@ -11,8 +11,8 @@ import {
   SiPostgresql,
   SiDocker,
 } from 'react-icons/si'
-import { Download } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Download, Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { siteConfig } from '@/lib/data'
 
 const techIcons: Record<string, React.ReactNode> = {
@@ -45,6 +45,7 @@ const fadeUp = {
 
 export function Hero() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <section className="relative flex flex-col overflow-hidden px-6 pt-9 pb-10 md:px-12 md:pt-12 lg:px-20">
@@ -92,6 +93,7 @@ export function Hero() {
           </span>
         </div>
         <div className="flex items-center gap-6">
+          {/* Desktop nav */}
           <nav aria-label="Navegación principal" className="hidden md:block">
             <ul className="flex items-center gap-8 font-mono text-xs tracking-[0.2em] uppercase">
               {navLinks.map((link, index) => (
@@ -121,8 +123,56 @@ export function Hero() {
               ))}
             </ul>
           </nav>
+          {/* Mobile menu button */}
+          <button
+            className="relative z-50 md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          >
+            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
       </header>
+
+      {/* Mobile navigation overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <motion.nav
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed top-0 right-0 z-40 flex h-full w-3/4 flex-col gap-8 border-l border-border bg-background p-8 pt-24 md:hidden"
+              aria-label="Navegación móvil"
+            >
+              <ul className="flex flex-col gap-6">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="inline-flex items-center gap-2 font-mono text-lg tracking-[0.15em] uppercase transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                      {link.external && <Download className="size-3.5 hidden md:inline" />}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Vertical kanji on the right — tategaki, like the poster references */}
       <div
@@ -151,10 +201,10 @@ export function Hero() {
         animate="visible"
         variants={stagger}
       >
-        <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-16 md:ml-12 lg:ml-24">
+        <div className="flex flex-col items-start gap-10 md:flex-row md:items-center md:gap-16 md:ml-12 lg:ml-24">
           {/* Avatar */}
-          <motion.div variants={fadeUp} className="shrink-0">
-            <span className="block w-48 h-48 md:w-80 md:h-80 overflow-hidden border border-border grayscale hover:grayscale-0 transition-all duration-300 rounded-full">
+          <motion.div variants={fadeUp} className="shrink-0 self-center md:self-auto">
+            <span className="block w-64 h-64 md:w-80 md:h-80 overflow-hidden border border-border grayscale hover:grayscale-0 transition-all duration-300 rounded-full">
               <Image
                 src="/images/nokx1z.png"
                 alt={siteConfig.name}
@@ -204,7 +254,7 @@ export function Hero() {
             {/* Tech stack badges */}
             <motion.div
               variants={fadeUp}
-              className="mt-10 flex flex-row gap-3"
+              className="mt-10 flex flex-row flex-wrap gap-3 md:flex-nowrap"
             >
               {['.NET', 'TypeScript', 'NestJS', 'Node.js', 'PHP'].map((tech) => (
                 <span
@@ -216,6 +266,8 @@ export function Hero() {
                 </span>
               ))}
             </motion.div>
+
+
           </div>
         </div>
       </motion.div>
